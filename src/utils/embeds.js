@@ -1,4 +1,4 @@
-let client = null;
+let client = require('../index').GetClient();
 
 function CreateEmbed(title, description, color, footer, url, timestamp) {
     return {
@@ -14,6 +14,5 @@ function CreateEmbed(title, description, color, footer, url, timestamp) {
 }
 
 module.exports = {
-    SetClient: function(c) { client = c; },
     CreateEmbed: CreateEmbed
 }

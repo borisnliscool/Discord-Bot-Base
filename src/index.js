@@ -9,10 +9,7 @@ let utils = {};
 
 client.once('ready', () => {
     const u = fs.readdirSync('./src/utils').filter(file => file.endsWith('.js')).map(file => require(`./utils/${file}`));
-    for (let i = 0; i < u.length; i++) {
-        utils = { ...utils, ...u[i] }
-        u[i].SetClient(client);
-    };
+    for (let i = 0; i < u.length; i++) { utils = { ...utils, ...u[i] }; };
 
     console.log(`Logged in as: "${client.user.tag}"!`);
 });
@@ -38,13 +35,14 @@ client.on('messageCreate', message => {
         });
 
         if (!found) {
-            message.channel.send({embeds: [utils.CreateEmbed('Error', `The command "${command}" does not exist!`, '#ff0000')]});
+            message.channel.send({embeds: [utils.CreateEmbed('Error', `The command \`${command}\` does not exist!`, '#ff0000')]});
         }
     }
 });
 
-client.login(process.env.CLIENT_TOKEN);
-
 module.exports = {
-    client: client,
+    GetClient: () => client,
+    GetUtils: () => utils
 }
+
+client.login(process.env.CLIENT_TOKEN);

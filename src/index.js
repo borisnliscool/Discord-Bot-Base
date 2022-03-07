@@ -27,7 +27,7 @@ client.on('messageCreate', message => {
                 found = true;
                 try {
                     const commandFile = require(`./commands/${cmd}`);
-                    commandFile.run(client, message, args);
+                    commandFile.run(message, args);
                 } catch (err) {
                     console.error(`An error occured while running the command "${cmd}": ${err}`);
                 }

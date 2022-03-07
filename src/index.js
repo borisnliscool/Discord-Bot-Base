@@ -5,12 +5,20 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 const fs = require('fs');
 const config = require('./config.json');
 const commands = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
+let utils = {};
 
 client.once('ready', () => {
+    const u = fs.readdirSync('./src/utils').filter(file => file.endsWith('.js')).map(file => require(`./utils/${file}`));
+    for (let i = 0; i < u.length; i++) {
+        utils = { ...utils, ...u[i] }
+        u[i].SetClient(client);
+    };
+
     console.log(`Logged in as: "${client.user.tag}"!`);
 });
 
 client.on('messageCreate', message => {
+    if (message.author.bot) return;
     if (message.content.startsWith(config.prefix)) {
         const args = message.content.slice(config.prefix.length).split(/ +/);
         const command = args.shift().toLowerCase();
@@ -30,9 +38,13 @@ client.on('messageCreate', message => {
         });
 
         if (!found) {
-            message.reply('Unknown command!');
+            message.channel.send({embeds: [utils.CreateEmbed('Error', `The command "${command}" does not exist!`, '#ff0000')]});
         }
     }
 });
 
 client.login(process.env.CLIENT_TOKEN);
+
+module.exports = {
+    client: client,
+}

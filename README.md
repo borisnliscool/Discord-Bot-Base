@@ -1,5 +1,5 @@
 # Node-Discord-Bot
- Simple Github bot starting template, that includes basic commands and utility features.
+Simple Discord bot starting template, that includes basic commands and utility features.
 
 ## Usage:
 1. Clone the repo

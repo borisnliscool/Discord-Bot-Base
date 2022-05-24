@@ -1,5 +1,5 @@
 # Node-Discord-Bot
-Simple Discord bot starting template, that includes basic commands and utility features.
+Simple Discord bot starting template, that includes basic commands and utility features. (Please note that there are far better bot-bases than this one out there, but this was just ment to be a little coding challange!)
 
 ## Usage:
 1. Clone the repo
